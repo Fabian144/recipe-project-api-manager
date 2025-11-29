@@ -37,44 +37,48 @@ export default {
 
   computed: {
     parsedRecipes() {
-      return JSON.parse(this.writtenRecipes);
+      try {
+        return JSON.parse(this.recipesToAdd);
+      } catch (error) {
+        this.parseError();
+      }
     },
   },
 
   methods: {
     deleteRecipes() {
-      if (this.parsedRecipes) {
-        this.fetching = true;
-        this.loadingText = 'Raderar recepten...';
-        this.parsedRecipes.forEach(async (recipe) => {
-          try {
-            const response = await fetch(
-              `REMOVED/${this.store.teamId}/recipes/${recipe.id}`,
-              {
-                method: 'DELETE',
-                headers: { 'Content-type': 'application/json' },
-              }
-            );
-            if (!response.ok) {
-              throw new Error(`Status: ${response.status}`);
+      this.fetching = true;
+      this.loadingText = 'Raderar recepten...';
+      this.parsedRecipes.forEach(async (recipe) => {
+        try {
+          const response = await fetch(
+            `REMOVED/${this.store.teamId}/recipes/${recipe.id}`,
+            {
+              method: 'DELETE',
+              headers: { 'Content-type': 'application/json' },
             }
-            this.loadingText = 'Recept borttagna';
-            setTimeout(() => {
-              this.loadingText = '';
-            }, 1000);
-          } catch (error) {
-            this.loadingText = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
-            console.error('Fetch failed:', error);
-          } finally {
-            this.fetching = false;
+          );
+          if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
           }
-        });
-      } else {
-        this.loadingText = 'Fel inträffade, se till att du skickar en array i JSON format';
-        setTimeout(() => {
-          this.loadingText = '';
-        }, 1000);
-      }
+          this.loadingText = 'Recept borttagna';
+          setTimeout(() => {
+            this.loadingText = '';
+          }, 1000);
+        } catch (error) {
+          this.loadingText = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
+          console.error('Fetch failed:', error);
+        } finally {
+          this.fetching = false;
+        }
+      });
+    },
+
+    parseError() {
+      this.loadingText = 'Fel inträffade, se till att du skickar en array i JSON format';
+      setTimeout(() => {
+        this.loadingText = '';
+      }, 3000);
     },
   },
 };
