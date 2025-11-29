@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    deleteRecipes() {
+    async deleteRecipes() {
       if (!this.parsedRecipes) {
         this.parseError();
         return;
