@@ -6,10 +6,10 @@
   <form @submit.prevent="deleteRecipes()">
     <textarea
       type="string"
-      v-model="writtenRecipes"
+      v-model="recipesToAdd"
       placeholder="Array med recept i JSON format (måste tas direkt från APIt)"
     ></textarea>
-    <button type="submit" :disabled="fetching || !writtenRecipes">Ta bort recepten</button>
+    <button type="submit" :disabled="fetching || !recipesToAdd">Ta bort recepten</button>
   </form>
 </template>
 
@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      writtenRecipes: '',
+      recipesToAdd: '',
       loadingText: '',
       fetching: false,
     };
