@@ -3,7 +3,7 @@
 
   <p v-if="store.validId">Team ID: {{ store.teamId }}</p>
 
-  <form @submit.prevent="submit">
+  <form v-if="!store.validId" @submit.prevent="submit">
     <input type="string" v-model="id" placeholder="Team ID" />
     <button type="submit">Autentisera</button>
   </form>
@@ -54,6 +54,7 @@ export default {
         this.id = '';
       } catch (error) {
         this.loadingText = `Fel inträffade med ${error.message.toLowerCase()}`;
+				this.store.validId = false;
         console.error('Fetch failed:', error);
       } finally {
         this.fetching = false;
@@ -78,7 +79,7 @@ input {
 }
 
 p {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   margin: 0 1em;
