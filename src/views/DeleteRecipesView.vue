@@ -47,6 +47,10 @@ export default {
 
   methods: {
     deleteRecipes() {
+      if (!this.parsedRecipes) {
+        this.parseError();
+        return;
+      }
       this.fetching = true;
       this.loadingText = 'Raderar recepten...';
       this.parsedRecipes.forEach(async (recipe) => {
