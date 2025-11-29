@@ -39,7 +39,7 @@ export default {
 
     async getRecipes() {
       this.fetching = true;
-      this.loadingText = 'Laddar recept...';
+      this.loadingText = 'Laddar in recepten...';
       try {
         const response = await fetch(`REMOVED/${this.store.teamId}/recipes`);
         if (!response.ok) {

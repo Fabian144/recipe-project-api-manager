@@ -4,8 +4,12 @@
   <h1>Lägg till recept</h1>
 
   <form @submit.prevent="postRecipes()">
-    <textarea type="string" v-model="recipes" placeholder="Array med recept"></textarea>
-    <button type="submit" :disabled="fetching || !recipes">Lägg till recepten</button>
+    <textarea
+      type="string"
+      v-model="writtenRecipes"
+      placeholder="Array med recept i JSON format"
+    ></textarea>
+    <button type="submit" :disabled="fetching || !writtenRecipes">Lägg till recepten</button>
   </form>
 </template>
 
@@ -25,24 +29,24 @@ export default {
 
   data() {
     return {
-      recipes: '',
+      writtenRecipes: '',
       loadingText: '',
       fetching: false,
     };
   },
 
   computed: {
-    parsedRecipes() {
-      return JSON.parse(this.recipes);
+    parsedRecipesToAdd() {
+      return JSON.parse(this.writtenRecipes);
     },
   },
 
   methods: {
     async postRecipes() {
-      if (this.parsedRecipes) {
+      if (this.parsedRecipesToAdd) {
         this.fetching = true;
         this.loadingText = 'Lägger till recepten...';
-        this.parsedRecipes.forEach(async (recipe) => {
+        this.parsedRecipesToAdd.forEach(async (recipe) => {
           try {
             const response = await fetch(
               `REMOVED/${this.store.teamId}/recipes`,
@@ -67,7 +71,10 @@ export default {
           }
         });
       } else {
-        this.loadingText = 'Fel inträffade, se till att du skickar en array';
+        this.loadingText = 'Fel inträffade, se till att du skickar en array i JSON format';
+        setTimeout(() => {
+          this.loadingText = '';
+        }, 1000);
       }
     },
   },

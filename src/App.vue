@@ -35,7 +35,7 @@ h1 {
 }
 
 a {
-  display: inline;
+  display: inline-block;
 	margin: 1em;
 	width: fit-content;
 	color: black;

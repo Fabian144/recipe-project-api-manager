@@ -6,10 +6,10 @@
   <form @submit.prevent="deleteRecipes()">
     <textarea
       type="string"
-      v-model="recipes"
-      placeholder="Array med recept (måste tas direkt från APIt)"
+      v-model="writtenRecipes"
+      placeholder="Array med recept i JSON format (måste tas direkt från APIt)"
     ></textarea>
-    <button type="submit" :disabled="fetching || !recipes">Ta bort recepten</button>
+    <button type="submit" :disabled="fetching || !writtenRecipes">Ta bort recepten</button>
   </form>
 </template>
 
@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      recipes: '',
+      writtenRecipes: '',
       loadingText: '',
       fetching: false,
     };
@@ -37,7 +37,7 @@ export default {
 
   computed: {
     parsedRecipes() {
-      return JSON.parse(this.recipes);
+      return JSON.parse(this.writtenRecipes);
     },
   },
 
@@ -70,7 +70,10 @@ export default {
           }
         });
       } else {
-        this.loadingText = 'Fel inträffade, se till att du skickar en array';
+        this.loadingText = 'Fel inträffade, se till att du skickar en array i JSON format';
+        setTimeout(() => {
+          this.loadingText = '';
+        }, 1000);
       }
     },
   },
