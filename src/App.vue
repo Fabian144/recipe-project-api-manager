@@ -52,4 +52,10 @@ a:hover {
     flex-direction: column;
   }
 }
+
+@media (max-width: 526px) {
+  nav {
+    margin-top: 1em;
+  }
+}
 </style>
