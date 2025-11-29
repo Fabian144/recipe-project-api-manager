@@ -1,9 +1,11 @@
 <template>
   <TeamIdForm></TeamIdForm>
   <template v-if="store.validId">
-    <router-link :to="'/'">Lägg till recept</router-link>
-    <router-link :to="{ name: 'bilder' }">Lägg till bilder</router-link>
-    <router-link :to="{ name: 'radera' }">Ta bort recept</router-link>
+    <nav>
+      <router-link :to="'/'">Lägg till recept</router-link>
+      <router-link :to="{ name: 'bilder' }">Lägg till bilder</router-link>
+      <router-link :to="{ name: 'radera' }">Ta bort recept</router-link>
+    </nav>
     <router-view></router-view>
   </template>
 </template>
@@ -29,5 +31,12 @@ body {
 
 a {
   padding: 1em;
+}
+
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

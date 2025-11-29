@@ -5,7 +5,7 @@
     <form v-for="recipe in store.recipes" @submit.prevent="postImage(recipe.id, recipe.newImageUrl)">
       <label>Byt bild för: {{ recipe.title }}</label>
       <p>Senaste: {{ recipe.imageUrl }}</p>
-      <input v-model="recipe.newImageUrl" placeholder="Länk till bilden" />
+      <input type="url" v-model="recipe.newImageUrl" placeholder="Länk till bilden" />
       <button type="submit" :disabled="fetching">Byt bild</button>
     </form>
   </div>

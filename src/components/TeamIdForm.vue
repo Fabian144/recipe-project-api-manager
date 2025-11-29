@@ -73,4 +73,11 @@ form {
   padding: 1em;
   float: right;
 }
+
+@media (max-width: 768px) {
+  form {
+    float: unset;
+		position: unset;
+  }
+}
 </style>
