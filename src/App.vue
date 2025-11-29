@@ -3,7 +3,7 @@
   <template v-if="store.validId">
     <nav>
       <router-link :to="'/'">Lägg till recept</router-link>
-      <router-link :to="{ name: 'bilder' }">Lägg till bilder</router-link>
+      <router-link :to="{ name: 'bilder' }">Byt receptbilder</router-link>
       <router-link :to="{ name: 'radera' }">Ta bort recept</router-link>
     </nav>
     <router-view></router-view>
@@ -29,8 +29,21 @@ body {
   margin: 0;
 }
 
+h1 {
+	font-size: 1.5em;
+	margin: 1em 1em 0;
+}
+
 a {
-  padding: 1em;
+  display: inline;
+	margin: 1em;
+	width: fit-content;
+	color: black;
+}
+
+a:hover {
+	background-color: black;
+	color: white;
 }
 
 @media (max-width: 768px) {
