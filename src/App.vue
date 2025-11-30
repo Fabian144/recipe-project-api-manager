@@ -12,38 +12,29 @@
 
 <script>
 import TeamIdForm from './components/TeamIdForm.vue';
-import { useTeamIdStore } from './stores/teamId';
+import { useIdAndRecipeStore } from './stores/teamIdAndRecipes';
 
 export default {
   components: { TeamIdForm },
 
   setup() {
-    const store = useTeamIdStore();
+    const store = useIdAndRecipeStore();
     return { store };
   },
 };
 </script>
 
-<style>
-body {
-  margin: 0;
-}
-
-h1 {
-	font-size: 1.5em;
-	margin: 1em 1em 0;
-}
-
+<style scoped>
 a {
   display: inline-block;
-	margin: 1em;
-	width: fit-content;
-	color: black;
+  margin: 1em;
+  width: fit-content;
+  color: black;
 }
 
 a:hover {
-	background-color: black;
-	color: white;
+  background-color: black;
+  color: white;
 }
 
 @media (max-width: 768px) {
@@ -55,7 +46,7 @@ a:hover {
 
 @media (max-width: 526px) {
   nav {
-    margin-top: 1em;
+    margin-top: 2em;
   }
 }
 </style>

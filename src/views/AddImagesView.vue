@@ -1,15 +1,12 @@
 <template>
-  <LoadingText v-show="loadingText" :loading-text="loadingText"></LoadingText>
+  <DisplayMessage v-show="displayMessage" :display-message="displayMessage"></DisplayMessage>
 
   <h1>Byt receptbilder</h1>
 
   <div class="recipe-forms">
-    <form
-      v-for="recipe in store.recipes"
-      @submit.prevent="postImage(recipe.id, recipe.newImageUrl)"
-    >
-      <label>Byt bild för: {{ recipe.title }}</label>
-      <p>Senaste: {{ recipe.imageUrl }}</p>
+    <form v-for="recipe in store.recipes" @submit.prevent="addImage(recipe)">
+      <label>{{ recipe.title }}</label>
+      <p>Nuvarande: {{ recipe.imageUrl }}</p>
       <input type="url" v-model="recipe.newImageUrl" placeholder="Länk till bilden" />
       <button type="submit" :disabled="fetching || !recipe.newImageUrl">Byt bild</button>
     </form>
@@ -17,48 +14,49 @@
 </template>
 
 <script>
-import LoadingText from '@/components/LoadingText.vue';
-import { useTeamIdStore } from '@/stores/teamId';
+import DisplayMessage from '@/components/DisplayMessage.vue';
+import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
 
 export default {
   components: {
-    LoadingText,
+    DisplayMessage,
   },
 
   setup() {
-    const store = useTeamIdStore();
+    const store = useIdAndRecipeStore();
     return { store };
   },
 
   data() {
     return {
-      loadingText: '',
+      displayMessage: '',
       fetching: false,
     };
   },
 
   methods: {
-    async postImage(id, imageUrl) {
+    async addImage(recipe) {
       this.fetching = true;
-      this.loadingText = 'Skickar ny bild';
+      this.displayMessage = 'Byter bild...';
       try {
         const response = await fetch(
-          `https://recipes.bocs.se/api/v1/${this.store.teamId}/recipes/${id}`,
+          `https://recipes.bocs.se/api/v1/${this.store.teamId}/recipes/${recipe.id}`,
           {
             method: 'PATCH',
-            body: JSON.stringify({ imageUrl: `${imageUrl}` }),
+            body: JSON.stringify({ imageUrl: `${recipe.imageUrl}` }),
             headers: { 'Content-type': 'application/json' },
           }
         );
         if (!response.ok) {
           throw new Error(`Status: ${response.status}`);
         }
-        this.loadingText = 'Skickad';
+        this.displayMessage = 'Bild tillagd';
         setTimeout(() => {
-          this.loadingText = '';
-        }, 1000);
+          this.displayMessage = '';
+        }, 4000);
+        recipe.imageUrl = recipe.newImageUrl;
       } catch (error) {
-        this.loadingText = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
+        this.displayMessage = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
         console.error('Fetch failed:', error);
       } finally {
         this.fetching = false;
@@ -69,8 +67,8 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  margin: 1em 1em 0.5em;
+label {
+	font-size: 1.2em;
 }
 
 form {
@@ -80,10 +78,14 @@ form {
 .recipe-forms {
   display: flex;
   flex-direction: column;
+  word-break: break-all;
+  width: 50em;
+  max-width: 90%;
+  margin: auto;
 }
 
 input {
-  width: 50%;
+  width: 60%;
   margin: 1em;
   height: 2em;
 }

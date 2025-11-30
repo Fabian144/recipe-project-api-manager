@@ -1,11 +1,11 @@
 <template>
-  <LoadingText v-show="loadingText" :loading-text="loadingText"></LoadingText>
+  <DisplayMessage v-show="displayMessage" :display-message="displayMessage"></DisplayMessage>
 
   <h1>Lägg till recept</h1>
 
   <form @submit.prevent="postRecipes">
     <textarea
-      type="string"
+      type="text"
       v-model="recipesToAdd"
       placeholder="Array med recept i JSON format"
     ></textarea>
@@ -14,23 +14,23 @@
 </template>
 
 <script>
-import LoadingText from '@/components/LoadingText.vue';
-import { useTeamIdStore } from '@/stores/teamId';
+import DisplayMessage from '@/components/DisplayMessage.vue';
+import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
 
 export default {
   components: {
-    LoadingText,
+    DisplayMessage,
   },
 
   setup() {
-    const store = useTeamIdStore();
+    const store = useIdAndRecipeStore();
     return { store };
   },
 
   data() {
     return {
       recipesToAdd: '',
-      loadingText: '',
+      displayMessage: '',
       fetching: false,
     };
   },
@@ -52,7 +52,7 @@ export default {
         return;
       }
       this.fetching = true;
-      this.loadingText = 'Lägger till recepten...';
+      this.displayMessage = 'Lägger till recepten...';
       this.parsedRecipes.forEach(async (recipe) => {
         try {
           const response = await fetch(
@@ -66,12 +66,12 @@ export default {
           if (!response.ok) {
             throw new Error(`Status: ${response.status}`);
           }
-          this.loadingText = 'Recept tillagda';
+          this.displayMessage = 'Recept tillagda';
           setTimeout(() => {
-            this.loadingText = '';
-          }, 1000);
+            this.displayMessage = '';
+          }, 4000);
         } catch (error) {
-          this.loadingText = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
+          this.displayMessage = `Fel inträffade vid senaste försöket med ${error.message.toLowerCase()}`;
           console.error('Fetch failed:', error);
         } finally {
           this.fetching = false;
@@ -80,9 +80,9 @@ export default {
     },
 
     parseError() {
-      this.loadingText = 'Fel inträffade, se till att du skickar en array i JSON format';
+      this.displayMessage = 'Fel inträffade, se till att du skickar en array i JSON format';
       setTimeout(() => {
-        this.loadingText = '';
+        this.displayMessage = '';
       }, 3000);
     },
   },
@@ -94,11 +94,15 @@ form {
   padding: 1em;
   display: flex;
   flex-direction: column;
+  max-width: 80%;
+  width: fit-content;
+  margin: auto;
 }
 
 textarea {
-  width: 50%;
-  margin: 1em;
+  width: 50em;
+	max-width: 100%;
+  margin: 1em 0;
   height: 20em;
 }
 

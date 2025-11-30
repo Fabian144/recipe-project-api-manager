@@ -1,5 +1,5 @@
 <template>
-  <LoadingText v-show="loadingText" :loading-text="loadingText"></LoadingText>
+  <DisplayMessage v-show="displayMessage" :display-message="displayMessage"></DisplayMessage>
 
   <p v-if="store.validId">Team ID: {{ store.teamId }}</p>
 
@@ -10,23 +10,23 @@
 </template>
 
 <script>
-import LoadingText from '@/components/LoadingText.vue';
-import { useTeamIdStore } from '@/stores/teamId';
+import DisplayMessage from '@/components/DisplayMessage.vue';
+import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
 
 export default {
   components: {
-    LoadingText,
+    DisplayMessage,
   },
 
   setup() {
-    const store = useTeamIdStore();
+    const store = useIdAndRecipeStore();
     return { store };
   },
 
   data() {
     return {
       id: '',
-      loadingText: '',
+      displayMessage: '',
       fetching: false,
     };
   },
@@ -39,7 +39,7 @@ export default {
 
     async getRecipes() {
       this.fetching = true;
-      this.loadingText = 'Laddar in recepten...';
+      this.displayMessage = 'Laddar in recepten...';
       try {
         const response = await fetch(`https://recipes.bocs.se/api/v1/${this.store.teamId}/recipes`);
         if (!response.ok) {
@@ -50,11 +50,10 @@ export default {
           recipe.newImageUrl = '';
         });
         this.store.validId = true;
-        this.loadingText = '';
+        this.displayMessage = '';
         this.id = '';
       } catch (error) {
-        this.loadingText = `Fel inträffade med ${error.message.toLowerCase()}`;
-				this.store.validId = false;
+        this.displayMessage = `Fel inträffade med ${error.message.toLowerCase()}`;
         console.error('Fetch failed:', error);
       } finally {
         this.fetching = false;
