@@ -43,7 +43,7 @@ export default {
           `REMOVED/${this.store.teamId}/recipes/${recipe.id}`,
           {
             method: 'PATCH',
-            body: JSON.stringify({ imageUrl: `${recipe.imageUrl}` }),
+            body: JSON.stringify({ imageUrl: `${recipe.newImageUrl}` }),
             headers: { 'Content-type': 'application/json' },
           }
         );
