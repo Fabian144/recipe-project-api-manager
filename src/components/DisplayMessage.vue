@@ -1,17 +1,17 @@
 <template>
-  <div class="loading-text">{{ loadingText }}</div>
+  <div class="display-message">{{ displayMessage }}</div>
 </template>
 
 <script>
 export default {
   props: {
-    loadingText: String,
+    displayMessage: String,
   },
 };
 </script>
 
 <style scoped>
-.loading-text {
+.display-message {
   position: fixed;
   right: 5em;
   top: 7em;

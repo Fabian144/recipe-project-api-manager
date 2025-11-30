@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useTeamIdStore = defineStore('teamId', {
+export const useIdAndRecipeStore = defineStore('teamId', {
   state: () => ({
 		recipes: [],
     teamId: '',
