@@ -2,9 +2,15 @@
   <TeamIdForm></TeamIdForm>
   <template v-if="store.validId">
     <nav>
-      <router-link :to="'/'">Lägg till recept</router-link>
-      <router-link :to="{ name: 'bilder' }">Byt receptbilder</router-link>
-      <router-link :to="{ name: 'radera' }">Ta bort recept</router-link>
+      <router-link :to="{ path: '/', query: { teamId: store.teamId } }"
+        >Lägg till recept</router-link
+      >
+      <router-link :to="{ name: 'bilder', query: { teamId: store.teamId } }"
+        >Byt receptbilder</router-link
+      >
+      <router-link :to="{ name: 'radera', query: { teamId: store.teamId } }"
+        >Ta bort recept</router-link
+      >
     </nav>
     <router-view></router-view>
   </template>
