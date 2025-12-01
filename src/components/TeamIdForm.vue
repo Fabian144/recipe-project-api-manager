@@ -3,8 +3,8 @@
 
   <p v-if="store.validId">Team ID: {{ store.teamId }}</p>
 
-  <form v-if="!store.validId" @submit.prevent="submit">
-    <input type="string" v-model="id" placeholder="Team ID" />
+  <form v-if="!store.validId" @submit.prevent="getAllRecipes">
+    <input type="text" v-model="store.teamId" placeholder="Team ID" />
     <button type="submit">Autentisera</button>
   </form>
 </template>
@@ -25,19 +25,13 @@ export default {
 
   data() {
     return {
-      id: '',
       displayMessage: '',
       fetching: false,
     };
   },
 
   methods: {
-    submit() {
-      this.store.teamId = this.id;
-      this.getRecipes();
-    },
-
-    async getRecipes() {
+    async getAllRecipes() {
       this.fetching = true;
       this.displayMessage = 'Laddar in recepten...';
       try {
@@ -51,7 +45,6 @@ export default {
         });
         this.store.validId = true;
         this.displayMessage = '';
-        this.id = '';
       } catch (error) {
         this.displayMessage = `Fel inträffade med ${error.message.toLowerCase()}`;
         console.error('Fetch failed:', error);
@@ -59,6 +52,15 @@ export default {
         this.fetching = false;
       }
     },
+  },
+
+  mounted() {
+    setTimeout(() => {
+      if (this.$route.query.teamId) {
+        this.store.teamId = this.$route.query.teamId;
+        this.getAllRecipes();
+      }
+    });
   },
 };
 </script>
