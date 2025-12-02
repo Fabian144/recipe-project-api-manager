@@ -2,6 +2,11 @@
 
 A Vue.js-based website created in 2025 for a recipe project that is part of the **Chas Academy Front-End Development with frameworks course**, for each group to be able to manage the recipes in their REST API .
 
+## Website 🌐
+
+Access the website here:
+https://fabian144.github.io/RecipeProjectAPIManagement/
+
 ## Features 📦
 
 - **Add recipes**: Add any amount of recipes at a time by pasting in an array in JSON format 
@@ -14,8 +19,3 @@ A Vue.js-based website created in 2025 for a recipe project that is part of the 
 - **Vue.js**
 - **Pinia** 
 - **REST API**
-
-## Website 🌐
-
-Access the website here:
-https://fabian144.github.io/RecipeProjectAPIManagement/
