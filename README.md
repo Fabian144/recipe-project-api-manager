@@ -1,6 +1,6 @@
 # Chas Academy recipe website project API manager 🍽
 
-A Vue.js-based website created in 2025 for a recipe project part of the **Chas Academy Front-End Development with frameworks course**, for each group to be able to manage the recipes in their REST API .
+A Vue.js-based website created in 2025 for a recipe project that is part of the **Chas Academy Front-End Development with frameworks course**, for each group to be able to manage the recipes in their REST API .
 
 ## Features 📦
 
