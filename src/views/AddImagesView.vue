@@ -16,6 +16,7 @@
 <script>
 import DisplayMessage from '@/components/DisplayMessage.vue';
 import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
+import apiUrl from '@/modules/apiUrl';
 
 export default {
   components: {
@@ -40,7 +41,7 @@ export default {
       this.displayMessage = 'Byter bild...';
       try {
         const response = await fetch(
-          `REMOVED/${this.store.teamId}/recipes/${recipe.id}`,
+          `${apiUrl}/${this.store.teamId}/recipes/${recipe.id}`,
           {
             method: 'PATCH',
             body: JSON.stringify({ imageUrl: `${recipe.newImageUrl}` }),

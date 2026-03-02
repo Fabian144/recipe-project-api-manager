@@ -16,6 +16,7 @@
 <script>
 import DisplayMessage from '@/components/DisplayMessage.vue';
 import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
+import apiUrl from '@/modules/apiUrl';
 
 export default {
   components: {
@@ -56,7 +57,7 @@ export default {
       this.parsedRecipes.forEach(async (recipe) => {
         try {
           const response = await fetch(
-            `REMOVED/${this.store.teamId}/recipes/${recipe.id}`,
+            `${apiUrl}/${this.store.teamId}/recipes/${recipe.id}`,
             {
               method: 'DELETE',
               headers: { 'Content-type': 'application/json' },

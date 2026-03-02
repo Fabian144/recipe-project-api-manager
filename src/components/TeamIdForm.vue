@@ -12,6 +12,7 @@
 <script>
 import DisplayMessage from '@/components/DisplayMessage.vue';
 import { useIdAndRecipeStore } from '@/stores/teamIdAndRecipes';
+import apiUrl from '@/modules/apiUrl';
 
 export default {
   components: {
@@ -35,7 +36,7 @@ export default {
       this.fetching = true;
       this.displayMessage = 'Laddar in recepten...';
       try {
-        const response = await fetch(`REMOVED/${this.store.teamId}/recipes`);
+        const response = await fetch(`${apiUrl}/${this.store.teamId}/recipes`);
         if (!response.ok) {
           throw new Error(`Status: ${response.status}`);
         }
