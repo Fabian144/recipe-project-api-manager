@@ -18,9 +18,7 @@ A Vue.js-based website in Swedish, created for a school <a href="https://github.
 
 ## Technologies used 🛠
 
-- **HTML**
-- **CSS**
-- **JavaScript**
 - **Vue.js**
+- **JavaScript**
 - **Pinia** 
 - **REST API**
