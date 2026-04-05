@@ -1,10 +1,13 @@
 # API manager - Chas Academy recipe website project 🍽
 
 <div align="center">
+<br/> 
+
+A Vue.js-based website in Swedish, created for a school <a href="https://github.com/Fabian144/ChasRecipeProject">recipe website project<a/>, for each group to be able to manage the recipes in their REST API.
+
   
 [![Live Demo](https://img.shields.io/badge/Live_demo-API_Manager-g?style=for-the-badge&logo=github)](https://fabian144.github.io/recipe-project-api-manager/)
 
-A Vue.js-based website created for a school <a href="https://github.com/Fabian144/ChasRecipeProject">recipe website project<a/>, for each group to be able to manage the recipes in their REST API.
 
 </div>
 
